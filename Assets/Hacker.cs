@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour
 {
+    //Game State
+    int level;
 
     // Use this for initialization
     void Start()
@@ -28,14 +30,25 @@ public class Hacker : MonoBehaviour
         {
             ShowMainMenu("        Select Target System");
         }
+        else if (input == "1"){
+            StartGame(1);
+        }
+        else if (input == "2"){
+            StartGame(2);
+        }
         else if (input == "frak")
         {
             ShowMainMenu("Chiana says hi!  Please try again.");
         }
         else
         {
-            ShowMainMenu("Invalid Input.  Please try again.");
+            ShowMainMenu("**Invalid Input.  Please try again.**");
         }
 
+    }
+
+    void StartGame(int level)
+    {
+        Terminal.WriteLine("You have chosen level - " + level);
     }
 }
