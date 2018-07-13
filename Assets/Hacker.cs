@@ -7,6 +7,9 @@ public class Hacker : MonoBehaviour
     //Game State
     int level;
 
+    enum Screen { MainMenu, Password, Win };
+    Screen currentScreen;
+
     // Use this for initialization
     void Start()
     {
@@ -15,6 +18,7 @@ public class Hacker : MonoBehaviour
 
     void ShowMainMenu(string message)
     {
+        currentScreen = Screen.MainMenu;
         Terminal.ClearScreen();
         Terminal.WriteLine("Anodyne Sytems Terminal Interface v1.8\n");
         Terminal.WriteLine("\n"+message+"\n");
@@ -26,14 +30,24 @@ public class Hacker : MonoBehaviour
     void OnUserInput(string input)
     {
         print("The user typed: " + input);
-        if (input == "menu")
+        if (input == "menu")  // We can always go direct to the main menu
         {
             ShowMainMenu("        Select Target System");
         }
-        else if (input == "1"){
+        else if (currentScreen == Screen.MainMenu)
+        {
+            RunMainMenu(input);
+        }
+    }
+
+    private void RunMainMenu(string input)
+    {
+        if (input == "1")
+        {
             StartGame(1);
         }
-        else if (input == "2"){
+        else if (input == "2")
+        {
             StartGame(2);
         }
         else if (input == "frak")
@@ -44,11 +58,12 @@ public class Hacker : MonoBehaviour
         {
             ShowMainMenu("**Invalid Input.  Please try again.**");
         }
-
     }
 
     void StartGame(int level)
     {
+        currentScreen = Screen.Password;
         Terminal.WriteLine("You have chosen level - " + level);
+        Terminal.WriteLine("Please enter password: ");
     }
 }
