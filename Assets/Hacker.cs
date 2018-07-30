@@ -29,6 +29,7 @@ public class Hacker : MonoBehaviour
 
     void OnUserInput(string input)
     {
+
         print("The user typed: " + input);
         if (input == "menu")  // We can always go direct to the main menu
         {
@@ -37,6 +38,14 @@ public class Hacker : MonoBehaviour
         else if (currentScreen == Screen.MainMenu)
         {
             RunMainMenu(input);
+        }
+        else if (currentScreen == Screen.Password)
+        {
+            CheckPassword(input);
+        }
+        else if (currentScreen == Screen.Win)
+        {
+            ShowMainMenu("        Select Target System");
         }
     }
 
@@ -50,6 +59,10 @@ public class Hacker : MonoBehaviour
         {
             StartGame(2);
         }
+        else if (input == "3")
+        {
+            StartGame(3);
+        }
         else if (input == "frak")
         {
             ShowMainMenu("Chiana says hi!  Please try again.");
@@ -60,10 +73,54 @@ public class Hacker : MonoBehaviour
         }
     }
 
-    void StartGame(int level)
+    void StartGame(int difficulty)
     {
+        level = difficulty;
         currentScreen = Screen.Password;
-        Terminal.WriteLine("You have chosen level - " + level);
-        Terminal.WriteLine("Please enter password: ");
+        Terminal.WriteLine("Please enter password:");
+    }
+
+    private void CheckPassword(string input)
+    {
+        if (level == 1)
+        {
+            if (input == "boyfriend" || input == "girlfriend" || input == "happy" || input == "sad" || input == "pretty")
+            {
+                Terminal.WriteLine("Congratulations!  You guessed it.");
+                Terminal.WriteLine("\nPress enter to play again!!");
+                currentScreen = Screen.Win;
+            }
+            else
+            {
+                Terminal.WriteLine("Incorrect guess, please try again.");
+            }
+        }
+        if (level == 2)
+        {
+            if (input == "syllabus" || input == "bookshelf" || input == "biography" || input == "english" || input == "poetry")
+            {
+                Terminal.WriteLine("Congratulations!  You guessed it.");
+                Terminal.WriteLine("\nPress enter to play again!!");
+
+                currentScreen = Screen.Win;
+            }
+            else
+            {
+                Terminal.WriteLine("Incorrect guess, please try again.");
+            }
+        }
+        if (level == 3)
+        {
+            if (input == "salary" || input == "comission" || input == "overtime" || input == "earnings" || input == "accrual")
+            {
+                Terminal.WriteLine("Congratulations!  You guessed it.");
+                Terminal.WriteLine("\nPress enter to play again!!");
+                currentScreen = Screen.Win;
+            }
+            else
+            {
+                Terminal.WriteLine("Incorrect guess, please try again.");
+            }
+        }
     }
 }
